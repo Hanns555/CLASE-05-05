@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">      
+    </script>
+    <link rel="stylesheet" href="ESTILOS\Estilos.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo"></div>
+      <h1>Práctica 2 de Combinatoria: Problemas 1 y 3</h1>
+    </header>
+    <main class="container mt-3 mb-3">
+        <nav class="topnav" id="myTopnav">
+            <a href="#P1" class="active">Problema 1</a>
+            <a href="#P2">Problema 3</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+          </nav>
+    </main>
+    <main  class="container mt-4 mb-4">
+      <article>
+        <a name="P1"></a>
+        <section>
+          <h2>
+            Problema 1
+          </h2>
+          <h3>
+            Distribución de Monedas
+          </h3>
+          <p>De cuántas formas es posible distribuir 10 monedas idénticas entre cinco niños si:</p>
+          <ol type="a">
+            <li>No hay restricciones.</li>
+            <li>Cada niño recibe al menos una moneda.</li>    
+          </ol>
+          <h3>
+            Solución
+          </h3>
+          <p style="text-align: justify;">
+            Se desea distribuir 10 monedas idénticas entre 5 niños:  
+          </p>
+          <ol type="a">
+            <li>Sin restricciones.</li>
+            <li>Cada niño recibe al menos una moneda.</li>
+          </ol>
+          <h3>
+            Inciso (a): Sin restricciones
+          </h3>
+          <p style="text-align: justify;">
+            Se usa la fórmula de combinaciones con repetición:
+          </p>
+          <p>
+            \[
+            \binom{5 + 10 - 1}{10} = \binom{14}{10}
+            \]
+          </p>
+          <pre>
+            <code>function combinaciones_sin_restricciones = problema1_a(monedas, ninos)
+            n = ninos;
+            r = monedas;
+            combinaciones_sin_restricciones = nchoosek(n + r - 1, r);
+            end</code>
+          </pre> 
+          <h3>
+            Explicación: Función nchoosek en MATLAB
+          </h3>
+          <p>
+            La función <code>nchoosek</code> en MATLAB calcula el número de combinaciones posibles para elegir 
+            \(r\) elementos de un conjunto de \(n\) elementos, sin importar el orden. En otras palabras, es la 
+            cantidad de formas de seleccionar \(r\) elementos de un conjunto de tamaño \(n\) sin repetición 
+            y sin importar el orden. La fórmula utilizada para este cálculo es:
+          </p>
+
+          <p>\[
+            \text{nchoosek}(n, r) = \frac{n!}{r!(n-r)!}
+        \]</p>
+    
+        <p>
+            Sin embargo, en tu caso, la fórmula que estás utilizando, \(\text{nchoosek}(n + r - 1, r)\), es para 
+            el cálculo de combinaciones con repetición. Este es un caso diferente donde se permite la repetición 
+            de elementos, como en el caso de distribuir \(r\) monedas entre \(n\) niños. La fórmula general para 
+            las combinaciones con repetición es:
+        </p>
+    
+        <p>
+            \[
+            C(n + r - 1, r) = \frac{(n + r - 1)!}{r!(n - 1)!}
+        \]
+        </p>
+    
+        <h3>
+            ¿Qué hace <code>nchoosek(n + r - 1, r)</code> en tu código?
+        </h3>
+        <p>
+            En tu función, \(\text{nchoosek}(n + r - 1, r)\) calcula el número de formas de distribuir \(r\) monedas 
+            entre \(n\) niños. Esta fórmula se usa cuando las monedas son indistinguibles y los niños pueden recibir 
+            más de una moneda (es decir, repetición permitida).
+        </p>
+        <h3>
+            Definición de la función
+        </h3>
+        <p>
+            En MATLAB, la definición de una función comienza con la palabra clave <code>function</code>, seguida 
+            del nombre de la función (en este caso, <code>combinaciones_sin_restricciones</code>), y los argumentos 
+            entre paréntesis (en este caso, <code>monedas</code> y <code>ninos</code>).
+        </p>
+    
+        <p>Tu función <code>problema1_a</code> hace lo siguiente:</p>
+    
+        <ul>
+            <li><strong>Entrada:</strong>
+                <ul>
+                    <li><code>monedas</code>: El número total de monedas a distribuir.</li>
+                    <li><code>ninos</code>: El número total de niños entre los cuales se distribuirán las monedas.</li>
+                </ul>
+            </li>
+            <li><strong>Operación:</strong>
+                <ul>
+                    <li>Se asigna el valor de <code>ninos</code> a \(n\) y el valor de <code>monedas</code> a \(r\).</li>
+                    <li>Se usa la fórmula de combinaciones con repetición para calcular el número de formas de 
+                        distribuir las monedas entre los niños.</li>
+                </ul>
+            </li>
+            <li><strong>Salida:</strong>
+                <ul>
+                    <li>La función devuelve el número de combinaciones posibles para distribuir las monedas 
+                        entre los niños.</li>
+                </ul>
+            </li>
+        </ul>
+          
+          <h3>
+            Inciso (b): Al menos una moneda por niño
+          </h3>
+          <p>
+            Se da una moneda a cada niño, y se distribuyen las restantes:
+          </p>
+          <p>
+            \[
+          \binom{(10 - 5) + 5 - 1}{5 - 1} = \binom{9}{4}
+          \]
+          </p>
+          <pre>
+            <code>
+                function combinaciones_con_restricciones = problema1_b(monedas, ninos)
+                 if monedas < ninos
+                  combinaciones_con_restricciones = 0;
+                 else
+                  monedas_restantes = monedas - ninos;
+                  combinaciones_con_restricciones = nchoosek(monedas_restantes + ninos - 1, monedas_restantes);
+                 endif
+                end</code>
+          </pre>
+        </section>
+        <a name="P2"></a>
+        <section>
+          <h2>
+            Problema 3
+          </h2>
+          <h3>
+            Soluciones Enteras No Negativas
+          </h3>
+          <p>
+            Determinar el número de soluciones enteras no negativas de la ecuación:
+          </p>
+          <p>
+            \[
+            x_1 + x_2 + x_3 + x_4 = 32,
+            \]
+          </p>
+          <p>bajo las siguientes condiciones:</p>
+          <ol type="a">
+            <li>\(x_i \geq 0\), para \(1 \leq i \leq 4\)</li>
+            <li>\(x_i &gt; 0\), para \(1 \leq i \leq 4\)</li>
+            <li>\(x_1, x_2 \geq 5\) y \(x_3, x_4 \geq 7\)</li>
+          </ol>
+          <h3>
+            Solución
+          </h3>
+          <p style="text-align: justify;">
+            Resolver la ecuación \(x_1 + x_2 + x_3 + x_4 = 32\) en diferentes escenarios.
+          </p>
+          <h3>
+            Inciso (a): \(x_i \geq 0\)
+          </h3>
+          <p>
+            \[
+            \binom{32 + 4 - 1}{4 - 1} = \binom{35}{3}
+            \]
+          </p>
+          <h3>
+            Inciso (b): \(x_i > 0\)
+          </h3>
+          <p>
+            Restamos 1 a cada variable:
+          </p>
+          <p>
+            \[
+          \binom{32 - 1}{3} = \binom{31}{3}
+          \]
+          </p>
+          <h3>
+            Inciso (c): \(x_1, x_2 \geq 5\) y \(x_3, x_4 \geq 7\)
+          </h3>
+          <p>
+            Cambio de variable:
+          </p>
+          <p>
+            \[
+          y_1 + y_2 + y_3 + y_4 = 32 - 5 - 5 - 7 - 7 = 8
+          \Rightarrow \binom{11}{3}
+          \]
+          </p>
+          <h3>
+            Código Octave
+          </h3>
+          <pre>
+            <code>
+                function combinatoria_practica_2_problema_3()
+                printf("Problema 3:\n");
+              
+                % (a) xi ≥ 0 para i = 1,2,3,4
+                soluciones_a = nchoosek(32 + 4 - 1, 4 - 1);
+                printf("(a) Soluciones con xi ≥ 0: %d\n", soluciones_a);
+              
+                % (b) xi > 0 para i = 1,2,3,4
+                soluciones_b = nchoosek(32 - 1, 4 - 1);
+                printf("(b) Soluciones con xi > 0: %d\n", soluciones_b);
+              
+                % (c) x1, x2 ≥ 5 y x3, x4 ≥ 7
+                soluciones_c = nchoosek(8 + 4 - 1, 4 - 1);
+                printf("(c) Soluciones con x1,x2 ≥ 5 y x3,x4 ≥ 7: %d\n", soluciones_c);
+                end
+            </code>
+          </pre>
+      </article>
+    </main>
+
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+    </script>
+  </body>
+</html>
